@@ -17,6 +17,8 @@ services:
       MYSQL_DATABASE: example
       MYSQL_ROOT_PASSWORD: root
     image: mysql:latest
+    ports:
+      - 3306:3306
     restart: always
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "--silent"]
@@ -25,5 +27,9 @@ services:
       start_period: 30s
     networks:
       - spring-mysql
+    volumes:
+      - db-data:/var/lib/mysql
 networks:
   spring-mysql: {}
+volumes:
+  db-data: {}
